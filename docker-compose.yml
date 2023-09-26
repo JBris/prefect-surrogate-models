@@ -1,0 +1,110 @@
+version: "3.9"
+
+services:
+
+  # mlflow:
+  #   image: $GITHUB_CONTAINER_REPO
+  #   container_name: ${PROJECT_NAME}-mlflow
+  #   hostname: mlflow
+  #   restart: unless-stopped
+  #   stop_grace_period: 10s
+  #   env_file: .env
+  #   environment:
+  #     MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
+  #     MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
+  #     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  #     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  #   ports:
+  #     - ${MLFLOW_PORT}:5000
+  #   command: >
+  #     mlflow server --serve-artifacts --host 0.0.0.0 --port 5000 
+  #     --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" --default-artifact-root s3://mlflow/
+
+  minio:
+    image: minio/minio:${MINIO_TAG}
+    container_name: ${PROJECT_NAME}-minio
+    hostname: minio
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    working_dir: /data
+    volumes:
+      - minio-data:/data
+    ports:
+      - ${MINIO_PORT}:9000
+      - ${MINIO_CONSOLE_PORT}:9001
+    environment:
+      MINIO_ACCESS_KEY: $MINIO_ACCESS_KEY
+      MINIO_SECRET_KEY: $MINIO_SECRET_KEY
+      MINIO_ROOT_USER: $MINIO_ROOT_USER
+      MINIO_ROOT_PASSWORD: $MINIO_ROOT_PASSWORD
+      MINIO_STORAGE_USE_HTTPS: $MINIO_STORAGE_USE_HTTPS
+    command: server /data --console-address ':9001' --address ':9000'
+
+  mc:
+    image: minio/mc:${MINIO_MC_TAG}
+    container_name: ${PROJECT_NAME}-mc
+    hostname: mc
+    env_file: .env
+    environment:
+      MINIO_PORT: $MINIO_PORT
+      MINIO_ACCESS_KEY: $MINIO_ACCESS_KEY
+      MINIO_SECRET_KEY: $MINIO_SECRET_KEY
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c ' sleep 5; 
+      /usr/bin/mc config host add s3 http://minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4;  
+      [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/mlflow;  /usr/bin/mc policy download s3/mlflow;  
+      [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/data;  /usr/bin/mc policy download s3/data; exit 0; '
+
+  postgres:
+    image: postgres:${POSTGRES_TAG}
+    container_name: ${PROJECT_NAME}-postgres
+    hostname: postgres
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    environment:
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_USER: $DB_USER
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:${ADMINER_TAG}
+    container_name: ${PROJECT_NAME}-adminer
+    hostname: adminer
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    ports:
+      - ${ADMINER_PORT}:8080
+
+  portainer:
+    image: portainer/portainer-ce:${PORTAINER_TAG}
+    container_name: ${PROJECT_NAME}-portainer
+    hostname: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    ports:
+      - ${PORTAINER_PORT}:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+
+networks:
+  default:
+    name: $PROJECT_NAME
+    driver: bridge
+    
+volumes:
+  postgres-data: {}
+  minio-data: {}
+  portainer-data: {}
+

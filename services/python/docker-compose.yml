@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+
+  python:
+    image: python:${PYTHON_TAG}
+    env_file: .env
+    build:
+      args:
+        PYTHON_TAG: $PYTHON_TAG
