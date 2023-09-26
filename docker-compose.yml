@@ -2,24 +2,66 @@ version: "3.9"
 
 services:
 
-  # mlflow:
-  #   image: $GITHUB_CONTAINER_REPO
-  #   container_name: ${PROJECT_NAME}-mlflow
-  #   hostname: mlflow
-  #   restart: unless-stopped
-  #   stop_grace_period: 10s
-  #   env_file: .env
-  #   environment:
-  #     MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
-  #     MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
-  #     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-  #     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  #   ports:
-  #     - ${MLFLOW_PORT}:5000
-  #   command: >
-  #     mlflow server --serve-artifacts --host 0.0.0.0 --port 5000 
-  #     --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" --default-artifact-root s3://mlflow/
+  prefect-cli:
+    image: $GITHUB_CONTAINER_REPO
+    container_name: ${PROJECT_NAME}-prefect-cli
+    env_file: .env
+    working_dir: /flows
+    environment:
+      PREFECT_API_URL: $PREFECT_API_URL
+    volumes:
+      - ./flows:/flows
+    entrypoint: "python"
 
+  mlflow:
+    image: $GITHUB_CONTAINER_REPO
+    container_name: ${PROJECT_NAME}-mlflow
+    hostname: mlflow
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    environment:
+      MLFLOW_BACKEND_STORE_URI: $MLFLOW_BACKEND_STORE_URI
+      MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+    ports:
+      - ${MLFLOW_PORT}:5000
+    command: >
+      mlflow server --serve-artifacts --host 0.0.0.0 --port 5000 
+      --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" --default-artifact-root s3://mlflow/
+
+  prefect-server:
+    image: prefecthq/prefect:${PREFECT_TAG}
+    container_name: ${PROJECT_NAME}-prefect-server
+    hostname: prefect-server
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    environment:
+      PREFECT_UI_URL: $PREFECT_UI_URL
+      PREFECT_API_URL: $PREFECT_SERVER_API_URL
+      PREFECT_SERVER_API_HOST: 0.0.0.0
+      PREFECT_API_DATABASE_CONNECTION_URL: $PREFECT_API_DATABASE_CONNECTION_URL 
+    depends_on:
+      - postgres
+    ports:
+      - ${PREFECT_PORT}:4200
+    volumes:
+      - prefect-data:/root/.prefect
+    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
+
+  prefect-agent:
+    image: prefecthq/prefect:${PREFECT_TAG}
+    container_name: ${PROJECT_NAME}-prefect-agent
+    hostname: prefect-agent
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    environment:
+      PREFECT_API_URL: $PREFECT_API_URL
+    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "queue"]
+    
   minio:
     image: minio/minio:${MINIO_TAG}
     container_name: ${PROJECT_NAME}-minio
@@ -56,6 +98,7 @@ services:
       /bin/sh -c ' sleep 5; 
       /usr/bin/mc config host add s3 http://minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4;  
       [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/mlflow;  /usr/bin/mc policy download s3/mlflow;  
+      [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/prefect-flows;  /usr/bin/mc policy download s3/prefect-flows;  
       [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/data;  /usr/bin/mc policy download s3/data; exit 0; '
 
   postgres:
@@ -104,6 +147,7 @@ networks:
     driver: bridge
     
 volumes:
+  prefect-data: {}
   postgres-data: {}
   minio-data: {}
   portainer-data: {}
