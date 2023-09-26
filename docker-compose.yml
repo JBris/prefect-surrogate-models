@@ -44,7 +44,7 @@ services:
       PREFECT_SERVER_API_HOST: 0.0.0.0
       PREFECT_API_DATABASE_CONNECTION_URL: $PREFECT_API_DATABASE_CONNECTION_URL 
     depends_on:
-      - postgres
+      - prefect-postgres
     ports:
       - ${PREFECT_PORT}:4200
     volumes:
@@ -101,6 +101,22 @@ services:
       [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/prefect-flows;  /usr/bin/mc policy download s3/prefect-flows;  
       [[ ! -z "`/usr/bin/mc ls s3 | grep challenge`" ]] || /usr/bin/mc mb s3/data;  /usr/bin/mc policy download s3/data; exit 0; '
 
+  prefect-postgres:
+    image: postgres:${POSTGRES_TAG}
+    container_name: ${PROJECT_NAME}-prefect-postgres
+    hostname: prefect-postgres
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    environment:
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: prefect
+      POSTGRES_USER: $DB_USER
+    ports:
+      - ${PREFECT_DB_PORT}:5432
+    volumes:
+      - prefect-postgres-data:/var/lib/postgresql/data
+
   postgres:
     image: postgres:${POSTGRES_TAG}
     container_name: ${PROJECT_NAME}-postgres
@@ -149,6 +165,7 @@ networks:
 volumes:
   prefect-data: {}
   postgres-data: {}
+  prefect-postgres-data: {}
   minio-data: {}
   portainer-data: {}
 
