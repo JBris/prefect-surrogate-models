@@ -1,0 +1,29 @@
+Name,Typical Value,Category,Description,Unit
+CFET,1,Water use,correction factor for evapotranspiration,-
+CVL,0.72,Conversion of assimilates into biomass,efficiency conversion of assimilates into leaf dry matter,kg / kg
+CVO,0.82,Conversion of assimilates into biomass,efficiency conversion of assimilates into storage organ dry matter,kg / kg
+CVR,0.72,Conversion of assimilates into biomass,efficiency conversion of assimilates into root dry matter,kg / kg
+CVS,0.69,Conversion of assimilates into biomass,efficiency conversion of assimilates into stem dry matter,kg / kg
+DLC,16,Phenology,critical day length for development (lower threshold),hours
+DLO,8,Phenology,optimum day length for development,hours
+PERDL,0.03,Death rates,max. relative death rate of leaves due to water stress,-
+Q10,2,Maintenance respiration,increase of the respiration rate per 10 °C temperature increase,-
+RDI,10,Water use,initial rooting depth,cm
+RDMCR,120,Water use,crop-dependent maximum rooting depth,cm
+RGRLAI,0.016,Initial state,max. relative increase in leaf area index,day-1
+RML,0.03,Maintenance respiration,maintenance respiration rate coefficient of leaves per day,day-1
+RMO,0.003,Maintenance respiration,maintenance respiration rate coefficient of storage per day,day-1
+RMR,0.015,Maintenance respiration,maintenance respiration rate coefficient of roots per day,day-1
+RMS,0.015,Maintenance respiration,maintenance respiration rate coefficient of stems per day,day-1
+SPA,0,Crop green area,specific pod area,ha / kg
+SPAN,37,Crop green area,life span of leaves growing at 35 Celsius,day
+TBASE,3,Crop green area,lower threshold temperature for physiological ageing of leaves,?C
+TBASEM,3,Crop green area,lower threshold temperature for emergence,?C
+TDWI,0.51,Initial state,initial total crop dry weight,kg / ha
+TEFFMX,20,Emergence,max. effective temperature for emergence,?C
+TSUM1,800,Phenological development,temperature sum from emergence to anthesis,?C day
+TSUM2,1400,Phenological development,temperature sum from anthesis to maturity,?C day
+TSUMEM,90,Emergence,temperature sum from sowing to emergence,?C day
+VERNBASE,14,Phenological development,base vernalization requirement,day
+VERNDVS,0.3,Phenological development,critical DVS for vernalization to switch off,-
+VERNSAT,70,Phenological development,saturated vernalization requirement,day

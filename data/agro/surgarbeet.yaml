@@ -1,0 +1,11 @@
+- 2006-01-01:
+    CropCalendar:
+      crop_end_date: 2006-10-20
+      crop_end_type: harvest
+      crop_name: sugarbeet
+      crop_start_date: 2006-03-31
+      crop_start_type: emergence
+      max_duration: 300
+      variety_name: Sugarbeet_601
+    StateEvents: null
+    TimedEvents: null
