@@ -25,26 +25,26 @@ stages:
       size: 3893437
     - path: flows/process_data.py
       hash: md5
-      md5: 19b4e5aa2479f2e95e0f03998c76a638
-      size: 5100
+      md5: a5d8168b6aacd3d7b5eb1102fd49af28
+      size: 7886
     outs:
     - path: data/processed/test_outputs.csv
       hash: md5
-      md5: 50381c679c35776c0c27c62f91b6fe01
-      size: 319
+      md5: 322144419ac84968acac51719c66ab15
+      size: 207
       isexec: true
     - path: data/processed/test_parameters.csv
       hash: md5
-      md5: 19bc701285f49552f73c7ebc5585fc20
-      size: 160
+      md5: 9156fd58ee4a11f6cb410f05ddf6f3d4
+      size: 118
       isexec: true
     - path: data/processed/train_outputs.csv
       hash: md5
-      md5: 365c17647d72a04845de395d69fae8b1
-      size: 7183311
+      md5: 358a55ddc322c3328907b40ded57ffa8
+      size: 4693365
       isexec: true
     - path: data/processed/train_parameters.csv
       hash: md5
-      md5: 86b4422a005aefacb9bd21d262c47ade
-      size: 3875066
+      md5: 44303192f2d688862c204660159bd327
+      size: 2765098
       isexec: true

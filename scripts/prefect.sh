@@ -2,4 +2,4 @@
 
 . .env
 
-docker compose run --rm prefect-cli "python -m flows.${@}"
+docker compose run --rm prefect-cli python -m flows.${@}

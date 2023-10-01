@@ -9,6 +9,10 @@ services:
     working_dir: /project
     environment:
       PREFECT_API_URL: $PREFECT_API_URL
+      PROJECT_NAME: $PROJECT_NAME
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      MLFLOW_S3_ENDPOINT_URL: $MLFLOW_S3_ENDPOINT_URL
     volumes:
       - .:/project
 

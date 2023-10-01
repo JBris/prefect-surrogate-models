@@ -6,6 +6,7 @@
 
 # External
 import hydra
+import mlflow
 from omegaconf import DictConfig
 import pandas as pd
 from pathlib import Path
@@ -78,7 +79,7 @@ def generate_inputs(
     df.to_csv(str(outfile), index=False)
 
     params_list = df.to_dict(orient="records")
-    return params_list, agro, weather_data, params
+    return params_list, agro, weather_data, params, outfile
 
 @task
 def generate_outputs(
@@ -122,7 +123,7 @@ def generate_outputs(
 def generate_data_flow(
     dir_model: DirModel, crop_model: CropModel, experiment_model: ExperimentModel,
     sampling_model: SamplingModel
-):
+) -> tuple[str, str]:
     """
     The data generation flow.
 
@@ -135,19 +136,73 @@ def generate_data_flow(
             The experiment data model.
         sampling_model (SamplingModel): 
             The sampling data model.
+
+    Returns:
+        tuple[str, str]: 
+            The parameter and output file paths.
     """
 
-    params_list, agro, weather_data, params = generate_inputs(crop_model, experiment_model, sampling_model, dir_model)
+    params_list, agro, weather_data, params, params_file = generate_inputs(
+        crop_model, experiment_model, sampling_model, dir_model
+    )
     target_results = generate_outputs(params_list, agro, weather_data, params)
 
     outfile = Path(dir_model.data_dir, dir_model.simulation_dir, "outputs.csv")
-    pd.DataFrame(target_results).to_csv(str(outfile), index=False)
+    out_df = pd.DataFrame(target_results)
+    out_df.to_csv(str(outfile), index=False)
 
     create_table_artifact(
         key="crop-input-data",
         table=params_list,
         description= "Crop simulation input data."
     )
+
+    return params_file, outfile
+
+def log_results(
+    tracking_uri: str, experiment_prefix: str,
+    crop_config: dict, dir_config: dict, 
+    experiment_config: dict, sampling_config: dict,
+    params_file: str, output_file: str
+) -> None: 
+    """
+    Log experiment results to the experiment tracker.
+
+    Args:
+        tracking_uri (str):
+            The tracking URI.
+        experiment_prefix (str):
+            The experiment name prefix.
+        crop_config (dict):
+            The crop configuration.
+        dir_config (dict):
+            The directory configuration.
+        experiment_config (dict):
+            The experiment configuration.
+        sampling_config (dict):
+            The sampling configuration.
+        params_file (str):
+            The parameters file path.
+        output_file (str):
+            The output file path.
+    """
+    task = "generate_data"
+    mlflow.set_tracking_uri(tracking_uri)
+    experiment_name = f"{experiment_prefix}_{task}"
+    existing_exp = mlflow.get_experiment_by_name(experiment_name)
+    if not existing_exp:
+        mlflow.create_experiment(experiment_name)
+    mlflow.set_experiment(experiment_name)
+
+    mlflow.set_tag("task", task)
+    
+    for config in [crop_config, dir_config, experiment_config, sampling_config]:
+        for k in config:
+            mlflow.log_param(k, config[k])
+        
+    mlflow.log_artifact(params_file)
+    mlflow.log_artifact(output_file)
+    mlflow.end_run()
 
 ######################################
 # Main
@@ -171,7 +226,15 @@ def main(config: DictConfig):
     crop_model = CropModel(**CROP_CONFIG)
     experiment_model = ExperimentModel(**EXPERIMENT_CONFIG)
     sampling_model = SamplingModel(**SAMPLING_CONFIG)
-    generate_data_flow(dir_model, crop_model, experiment_model, sampling_model)
+    params_file, output_file = generate_data_flow(
+        dir_model, crop_model, experiment_model, sampling_model
+    )
 
+    if experiment_model.tracking_enabled:
+        log_results(
+            experiment_model.tracking_uri, experiment_model.name, CROP_CONFIG, 
+            DIR_CONFIG, EXPERIMENT_CONFIG, SAMPLING_CONFIG, params_file, output_file
+        )
+        
 if __name__ == "__main__":
     main()
