@@ -10,7 +10,7 @@ Welcome to Prefect Surrogate Models's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   flows/index.rst
 
 Indices and tables
 ==================

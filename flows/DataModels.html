@@ -1,0 +1,186 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Models &#8212; Prefect Surrogate Models  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generate Data" href="generate_data.html" />
+    <link rel="prev" title="Prefect Surrogate Models Flows" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_data.html" title="Generate Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prefect Surrogate Models Flows"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="data-models">
+<h1>Data Models<a class="headerlink" href="#data-models" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 01/10/23</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.DirModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">DirModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#DirModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.DirModel" title="Link to this definition">¶</a></dt>
+<dd><p>The directory data model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_): </dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.CropModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">CropModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WAV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#CropModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.CropModel" title="Link to this definition">¶</a></dt>
+<dd><p>The crop data model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_): </dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.ExperimentModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">ExperimentModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracking_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracking_enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads_per_worker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#ExperimentModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.ExperimentModel" title="Link to this definition">¶</a></dt>
+<dd><p>The experiment data model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_): </dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.SamplingModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">SamplingModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#SamplingModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.SamplingModel" title="Link to this definition">¶</a></dt>
+<dd><p>The sampling data model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_): </dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data Models</a><ul>
+<li><a class="reference internal" href="#flows.DataModels.DirModel"><code class="docutils literal notranslate"><span class="pre">DirModel</span></code></a></li>
+<li><a class="reference internal" href="#flows.DataModels.CropModel"><code class="docutils literal notranslate"><span class="pre">CropModel</span></code></a></li>
+<li><a class="reference internal" href="#flows.DataModels.ExperimentModel"><code class="docutils literal notranslate"><span class="pre">ExperimentModel</span></code></a></li>
+<li><a class="reference internal" href="#flows.DataModels.SamplingModel"><code class="docutils literal notranslate"><span class="pre">SamplingModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Prefect Surrogate Models Flows</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="generate_data.html"
+                          title="next chapter">Generate Data</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/flows/DataModels.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_data.html" title="Generate Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prefect Surrogate Models Flows"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Models</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>

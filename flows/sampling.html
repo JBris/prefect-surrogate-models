@@ -1,0 +1,244 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sampling &#8212; Prefect Surrogate Models  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Generate Data" href="generate_data.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_data.html" title="Generate Data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Sampling</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="sampling">
+<h1>Sampling<a class="headerlink" href="#sampling" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 01/10/23</p>
+<dl class="py function" id="module-flows.sampling">
+<dt class="sig sig-object py" id="flows.sampling.get_inputs">
+<span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">get_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WAV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NASAPowerWeatherDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">YAMLCropDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DummySoilDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">WOFOST72SiteDataProvider</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#get_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.get_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>Get input data.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data_dir (str):</dt><dd><p>The data directory.</p>
+</dd>
+<dt>agro_dir (str):</dt><dd><p>The agronomy directory.</p>
+</dd>
+<dt>crop_dir (str):</dt><dd><p>The crop directory.</p>
+</dd>
+<dt>weather_dir (str):</dt><dd><p>The weather directory.</p>
+</dd>
+<dt>agro_file (str):</dt><dd><p>The agronomy config file.</p>
+</dd>
+<dt>latitude (float):</dt><dd><p>The crop latitude.</p>
+</dd>
+<dt>longitude (float):</dt><dd><p>The crop longitude.</p>
+</dd>
+</dl>
+<p>WAV (float):</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[</dt><dd><p>dict, NASAPowerWeatherDataProvider, YAMLCropDataProvider, DummySoilDataProvider, WOFOST72SiteDataProvider</p>
+</dd>
+<dt>]:</dt><dd><p>The input data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flows.sampling.get_param_provider">
+<span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">get_param_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agro</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">YAMLCropDataProvider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DummySoilDataProvider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">WOFOST72SiteDataProvider</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ParameterProvider</span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#get_param_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.get_param_provider" title="Link to this definition">¶</a></dt>
+<dd><p>Get the simulation parameter provider.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>agro (dict):</dt><dd><p>The agronomy dictionary.</p>
+</dd>
+<dt>crop_data (YAMLCropDataProvider):</dt><dd><p>The crop data provider.</p>
+</dd>
+<dt>soil_data (DummySoilDataProvider):</dt><dd><p>The soil data provider.</p>
+</dd>
+<dt>site_data (WOFOST72SiteDataProvider):</dt><dd><p>The site data provider.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>ParameterProvider:</dt><dd><p>The simulation parameter provider.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flows.sampling.run_till_terminate">
+<span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">run_till_terminate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ParameterProvider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NASAPowerWeatherDataProvider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#run_till_terminate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.run_till_terminate" title="Link to this definition">¶</a></dt>
+<dd><p>Run the simulation until termination.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>params (ParameterProvider):</dt><dd><p>The parameter provider.</p>
+</dd>
+<dt>weather_data (NASAPowerWeatherDataProvider):</dt><dd><p>The weather data.</p>
+</dd>
+<dt>agro (dict):</dt><dd><p>The agronomy configuration.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict:</dt><dd><p>The simulation outputs.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flows.sampling.sample_params">
+<span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">sample_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#sample_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.sample_params" title="Link to this definition">¶</a></dt>
+<dd><p>Sample from the parameter space using Latin Hypercube sampling.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>params_config (dict):</dt><dd><p>The parameter configuration containing lower and upper bounds.</p>
+</dd>
+<dt>n (int):</dt><dd><p>The number of draws.</p>
+</dd>
+<dt>seed (int, optional):</dt><dd><p>The random seed. Defaults to None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>np.array:</dt><dd><p>Latin Hypercube samples.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flows.sampling.set_override">
+<span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">set_override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ParameterProvider</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ParameterProvider</span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#set_override"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.set_override" title="Link to this definition">¶</a></dt>
+<dd><p>Override parameters for a simulation.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>params (ParameterProvider):</dt><dd><p>The parameter provider.</p>
+</dd>
+<dt>param_set (dict):</dt><dd><p>A parameter set dictionary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>ParameterProvider:</dt><dd><p>The parameter provider.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Sampling</a><ul>
+<li><a class="reference internal" href="#flows.sampling.get_inputs"><code class="docutils literal notranslate"><span class="pre">get_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#flows.sampling.get_param_provider"><code class="docutils literal notranslate"><span class="pre">get_param_provider()</span></code></a></li>
+<li><a class="reference internal" href="#flows.sampling.run_till_terminate"><code class="docutils literal notranslate"><span class="pre">run_till_terminate()</span></code></a></li>
+<li><a class="reference internal" href="#flows.sampling.sample_params"><code class="docutils literal notranslate"><span class="pre">sample_params()</span></code></a></li>
+<li><a class="reference internal" href="#flows.sampling.set_override"><code class="docutils literal notranslate"><span class="pre">set_override()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="generate_data.html"
+                          title="previous chapter">Generate Data</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/flows/sampling.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_data.html" title="Generate Data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Sampling</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>

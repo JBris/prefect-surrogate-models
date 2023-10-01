@@ -1,0 +1,290 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flows.sampling &#8212; Prefect Surrogate Models  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">flows.sampling</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for flows.sampling</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1">######################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">######################################</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">join_path</span>
+<span class="kn">import</span> <span class="nn">pcse</span>
+<span class="kn">from</span> <span class="nn">pcse.base</span> <span class="kn">import</span> <span class="n">ParameterProvider</span>
+<span class="kn">from</span> <span class="nn">pcse.db</span> <span class="kn">import</span> <span class="n">NASAPowerWeatherDataProvider</span>
+<span class="kn">from</span> <span class="nn">pcse.fileinput</span> <span class="kn">import</span> <span class="n">YAMLCropDataProvider</span>
+<span class="kn">from</span> <span class="nn">pcse.models</span> <span class="kn">import</span> <span class="n">Wofost72_PP</span>
+<span class="kn">from</span> <span class="nn">pcse.util</span> <span class="kn">import</span> <span class="n">DummySoilDataProvider</span><span class="p">,</span> <span class="n">WOFOST72SiteDataProvider</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">qmc</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="c1">######################################</span>
+<span class="c1"># Functions</span>
+<span class="c1">######################################</span>
+
+
+<div class="viewcode-block" id="get_inputs">
+<a class="viewcode-back" href="../../flows/sampling.html#flows.sampling.get_inputs">[docs]</a>
+<span class="k">def</span> <span class="nf">get_inputs</span><span class="p">(</span>
+    <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">agro_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">crop_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">weather_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">agro_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">WAV</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
+    <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">NASAPowerWeatherDataProvider</span><span class="p">,</span>
+    <span class="n">YAMLCropDataProvider</span><span class="p">,</span>
+    <span class="n">DummySoilDataProvider</span><span class="p">,</span>
+    <span class="n">WOFOST72SiteDataProvider</span><span class="p">,</span>
+<span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get input data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_dir (str):</span>
+<span class="sd">            The data directory.</span>
+<span class="sd">        agro_dir (str):</span>
+<span class="sd">            The agronomy directory.</span>
+<span class="sd">        crop_dir (str):</span>
+<span class="sd">            The crop directory.</span>
+<span class="sd">        weather_dir (str):</span>
+<span class="sd">            The weather directory.</span>
+<span class="sd">        agro_file (str):</span>
+<span class="sd">            The agronomy config file.</span>
+<span class="sd">        latitude (float):</span>
+<span class="sd">            The crop latitude.</span>
+<span class="sd">        longitude (float):</span>
+<span class="sd">            The crop longitude.</span>
+<span class="sd">        WAV (float):</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[</span>
+<span class="sd">            dict, NASAPowerWeatherDataProvider, YAMLCropDataProvider, DummySoilDataProvider, WOFOST72SiteDataProvider</span>
+<span class="sd">        ]:</span>
+<span class="sd">            The input data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">agro_config</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">agro_dir</span><span class="p">,</span> <span class="n">agro_file</span><span class="p">)</span>
+    <span class="n">meteo_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">weather_dir</span><span class="p">)</span>
+    <span class="n">crop_dir</span> <span class="o">=</span> <span class="n">join_path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">crop_dir</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">agro_config</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">agro</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">pcse</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">METEO_CACHE_DIR</span> <span class="o">=</span> <span class="n">meteo_dir</span>
+    <span class="n">weather_data</span> <span class="o">=</span> <span class="n">NASAPowerWeatherDataProvider</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">)</span>
+
+    <span class="n">crop_data</span> <span class="o">=</span> <span class="n">YAMLCropDataProvider</span><span class="p">(</span><span class="n">fpath</span><span class="o">=</span><span class="n">crop_dir</span><span class="p">,</span> <span class="n">force_reload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">soil_data</span> <span class="o">=</span> <span class="n">DummySoilDataProvider</span><span class="p">()</span>
+    <span class="n">site_data</span> <span class="o">=</span> <span class="n">WOFOST72SiteDataProvider</span><span class="p">(</span><span class="n">WAV</span><span class="o">=</span><span class="n">WAV</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">crop_data</span><span class="p">,</span> <span class="n">soil_data</span><span class="p">,</span> <span class="n">site_data</span></div>
+
+
+
+<div class="viewcode-block" id="get_param_provider">
+<a class="viewcode-back" href="../../flows/sampling.html#flows.sampling.get_param_provider">[docs]</a>
+<span class="k">def</span> <span class="nf">get_param_provider</span><span class="p">(</span>
+    <span class="n">agro</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">crop_data</span><span class="p">:</span> <span class="n">YAMLCropDataProvider</span><span class="p">,</span>
+    <span class="n">soil_data</span><span class="p">:</span> <span class="n">DummySoilDataProvider</span><span class="p">,</span>
+    <span class="n">site_data</span><span class="p">:</span> <span class="n">WOFOST72SiteDataProvider</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParameterProvider</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the simulation parameter provider.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        agro (dict):</span>
+<span class="sd">            The agronomy dictionary.</span>
+<span class="sd">        crop_data (YAMLCropDataProvider):</span>
+<span class="sd">            The crop data provider.</span>
+<span class="sd">        soil_data (DummySoilDataProvider):</span>
+<span class="sd">            The soil data provider.</span>
+<span class="sd">        site_data (WOFOST72SiteDataProvider):</span>
+<span class="sd">            The site data provider.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ParameterProvider:</span>
+<span class="sd">            The simulation parameter provider.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">first_date</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">agro</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">crop_calendar</span> <span class="o">=</span> <span class="n">agro</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">first_date</span><span class="p">][</span><span class="s2">&quot;CropCalendar&quot;</span><span class="p">]</span>
+
+    <span class="n">crop_data</span><span class="o">.</span><span class="n">set_active_crop</span><span class="p">(</span><span class="n">crop_calendar</span><span class="p">[</span><span class="s2">&quot;crop_name&quot;</span><span class="p">],</span> <span class="n">crop_calendar</span><span class="p">[</span><span class="s2">&quot;variety_name&quot;</span><span class="p">])</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">ParameterProvider</span><span class="p">(</span>
+        <span class="n">cropdata</span><span class="o">=</span><span class="n">crop_data</span><span class="p">,</span> <span class="n">sitedata</span><span class="o">=</span><span class="n">site_data</span><span class="p">,</span> <span class="n">soildata</span><span class="o">=</span><span class="n">soil_data</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">params</span></div>
+
+
+
+<div class="viewcode-block" id="sample_params">
+<a class="viewcode-back" href="../../flows/sampling.html#flows.sampling.sample_params">[docs]</a>
+<span class="k">def</span> <span class="nf">sample_params</span><span class="p">(</span><span class="n">params_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sample from the parameter space using Latin Hypercube sampling.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params_config (dict):</span>
+<span class="sd">            The parameter configuration containing lower and upper bounds.</span>
+<span class="sd">        n (int):</span>
+<span class="sd">            The number of draws.</span>
+<span class="sd">        seed (int, optional):</span>
+<span class="sd">            The random seed. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.array:</span>
+<span class="sd">            Latin Hypercube samples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">params_config</span><span class="p">)</span>
+    <span class="n">sampler</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">LatinHypercube</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="n">lower_bounds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">upper_bounds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">params_config</span><span class="p">:</span>
+        <span class="n">lb</span> <span class="o">=</span> <span class="n">params_config</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s2">&quot;lb&quot;</span><span class="p">]</span>
+        <span class="n">ub</span> <span class="o">=</span> <span class="n">params_config</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s2">&quot;ub&quot;</span><span class="p">]</span>
+        <span class="n">lower_bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span>
+        <span class="n">upper_bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ub</span><span class="p">)</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">sample_scaled</span> <span class="o">=</span> <span class="n">qmc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">lower_bounds</span><span class="p">,</span> <span class="n">upper_bounds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sample_scaled</span></div>
+
+
+
+<div class="viewcode-block" id="set_override">
+<a class="viewcode-back" href="../../flows/sampling.html#flows.sampling.set_override">[docs]</a>
+<span class="k">def</span> <span class="nf">set_override</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">ParameterProvider</span><span class="p">,</span> <span class="n">param_set</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParameterProvider</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Override parameters for a simulation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (ParameterProvider):</span>
+<span class="sd">            The parameter provider.</span>
+<span class="sd">        param_set (dict):</span>
+<span class="sd">            A parameter set dictionary.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ParameterProvider:</span>
+<span class="sd">            The parameter provider.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param_set</span><span class="p">:</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">set_override</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">param_set</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">params</span></div>
+
+
+
+<div class="viewcode-block" id="run_till_terminate">
+<a class="viewcode-back" href="../../flows/sampling.html#flows.sampling.run_till_terminate">[docs]</a>
+<span class="k">def</span> <span class="nf">run_till_terminate</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">ParameterProvider</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">:</span> <span class="n">NASAPowerWeatherDataProvider</span><span class="p">,</span> <span class="n">agro</span><span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the simulation until termination.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (ParameterProvider):</span>
+<span class="sd">            The parameter provider.</span>
+<span class="sd">        weather_data (NASAPowerWeatherDataProvider):</span>
+<span class="sd">            The weather data.</span>
+<span class="sd">        agro (dict):</span>
+<span class="sd">            The agronomy configuration.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict:</span>
+<span class="sd">            The simulation outputs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wofost</span> <span class="o">=</span> <span class="n">Wofost72_PP</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">agro</span><span class="p">)</span>
+    <span class="n">wofost</span><span class="o">.</span><span class="n">run_till_terminate</span><span class="p">()</span>
+    <span class="n">sim_results</span> <span class="o">=</span> <span class="n">wofost</span><span class="o">.</span><span class="n">get_summary_output</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">sim_results</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">flows.sampling</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>
