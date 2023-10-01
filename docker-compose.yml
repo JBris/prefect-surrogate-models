@@ -86,6 +86,7 @@ services:
       MINIO_ROOT_USER: $MINIO_ROOT_USER
       MINIO_ROOT_PASSWORD: $MINIO_ROOT_PASSWORD
       MINIO_STORAGE_USE_HTTPS: $MINIO_STORAGE_USE_HTTPS
+      MINIO_PROMETHEUS_AUTH_TYPE: $MINIO_PROMETHEUS_AUTH_TYPE
     command: server /data --console-address ':9001' --address ':9000'
 
   mc:
@@ -178,6 +179,83 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
 
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_TAG}
+    container_name: ${PROJECT_NAME}-prometheus
+    hostname: prometheus
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    user: "0"
+    ports:
+      - ${PROMETHEUS_PORT}:9090
+    volumes:
+      - ./services/prometheus/:/etc/prometheus/
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    links:
+      - cadvisor:cadvisor
+      - portainer:portainer
+    depends_on:
+      - cadvisor
+      - portainer
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  nodeexporter:
+    image: prom/node-exporter:${PROMETHEUS_NODE_EXPORTER_TAG}
+    container_name: ${PROJECT_NAME}-nodeexporter
+    hostname: nodeexporter
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    ports:
+      - ${PROMETHEUS_NODE_EXPORTER_PORT}:9100
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+
+  alertmanager:
+    image: prom/alertmanager:${PROMETHEUS_ALERT_MANAGER_TAG}
+    container_name: ${PROJECT_NAME}-alertmanager
+    hostname: alertmanager
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    ports:
+      - ${PROMETHEUS_ALERT_MANAGER_PORT}:9093
+    volumes:
+      - alertmanager-data:/etc/alertmanager
+      - ./services/alertmanager/config.yaml:/etc/alertmanager/config.yaml
+    command:
+      - '--config.file=/etc/alertmanager/config.yaml'
+      - '--storage.path=/alertmanager'
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:${PROMETHEUS_CADVISOR_TAG}
+    container_name: ${PROJECT_NAME}-cadvisor
+    hostname: cadvisor
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - ${PROMETHEUS_CADVISOR_PORT}:8080
+
 networks:
   default:
     name: $PROJECT_NAME
@@ -191,5 +269,5 @@ volumes:
   minio-data: {}
   grafana-data: {}
   portainer-data: {}
-  
-
+  prometheus-data: {}
+  alertmanager-data: {}
