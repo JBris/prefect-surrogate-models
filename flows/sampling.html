@@ -17,6 +17,7 @@
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Process Data" href="process_data.html" />
     <link rel="prev" title="Generate Data" href="generate_data.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -32,6 +33,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="process_data.html" title="Process Data"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="generate_data.html" title="Generate Data"
              accesskey="P">previous</a> |</li>
@@ -53,7 +57,7 @@
 <dt class="sig sig-object py" id="flows.sampling.get_inputs">
 <span class="sig-prename descclassname"><span class="pre">flows.sampling.</span></span><span class="sig-name descname"><span class="pre">get_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WAV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NASAPowerWeatherDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">YAMLCropDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DummySoilDataProvider</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">WOFOST72SiteDataProvider</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/flows/sampling.html#get_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.sampling.get_inputs" title="Link to this definition">¶</a></dt>
 <dd><p>Get input data.</p>
-<dl>
+<dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
 <dt>data_dir (str):</dt><dd><p>The data directory.</p>
 </dd>
@@ -69,8 +73,9 @@
 </dd>
 <dt>longitude (float):</dt><dd><p>The crop longitude.</p>
 </dd>
+<dt>WAV (float):</dt><dd><p>The  initial soil moisture content.</p>
+</dd>
 </dl>
-<p>WAV (float):</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
 <dt>tuple[</dt><dd><p>dict, NASAPowerWeatherDataProvider, YAMLCropDataProvider, DummySoilDataProvider, WOFOST72SiteDataProvider</p>
@@ -198,6 +203,11 @@
     <p class="topless"><a href="generate_data.html"
                           title="previous chapter">Generate Data</a></p>
   </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="process_data.html"
+                          title="next chapter">Process Data</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -228,6 +238,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="process_data.html" title="Process Data"
+             >next</a> |</li>
         <li class="right" >
           <a href="generate_data.html" title="Generate Data"
              >previous</a> |</li>

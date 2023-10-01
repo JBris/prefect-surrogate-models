@@ -59,7 +59,8 @@
     <span class="n">crop_dir</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">weather_dir</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">simulation_dir</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span></div>
+    <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">processed_dir</span><span class="p">:</span> <span class="nb">str</span></div>
 
     
 <div class="viewcode-block" id="CropModel">
@@ -93,9 +94,12 @@
     <span class="n">tracking_enabled</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">n_workers</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">threads_per_worker</span><span class="p">:</span> <span class="nb">int</span></div>
+    <span class="n">threads_per_worker</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">parameters_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">outputs_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">test_row</span><span class="p">:</span> <span class="nb">int</span></div>
 
-
+    
 <div class="viewcode-block" id="SamplingModel">
 <a class="viewcode-back" href="../../flows/DataModels.html#flows.DataModels.SamplingModel">[docs]</a>
 <span class="k">class</span> <span class="nc">SamplingModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>

@@ -50,6 +50,7 @@
 
 <span class="c1"># External</span>
 <span class="kn">import</span> <span class="nn">hydra</span>
+<span class="kn">import</span> <span class="nn">mlflow</span>
 <span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">DictConfig</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -122,7 +123,7 @@
     <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">params_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span>
+    <span class="k">return</span> <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">outfile</span>
 
 <span class="nd">@task</span>
 <span class="k">def</span> <span class="nf">generate_outputs</span><span class="p">(</span>
@@ -166,7 +167,7 @@
 <span class="k">def</span> <span class="nf">generate_data_flow</span><span class="p">(</span>
     <span class="n">dir_model</span><span class="p">:</span> <span class="n">DirModel</span><span class="p">,</span> <span class="n">crop_model</span><span class="p">:</span> <span class="n">CropModel</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">:</span> <span class="n">ExperimentModel</span><span class="p">,</span>
     <span class="n">sampling_model</span><span class="p">:</span> <span class="n">SamplingModel</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The data generation flow.</span>
 
@@ -179,19 +180,76 @@
 <span class="sd">            The experiment data model.</span>
 <span class="sd">        sampling_model (SamplingModel): </span>
 <span class="sd">            The sampling data model.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[str, str]: </span>
+<span class="sd">            The parameter and output file paths.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">generate_inputs</span><span class="p">(</span><span class="n">crop_model</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">,</span> <span class="n">sampling_model</span><span class="p">,</span> <span class="n">dir_model</span><span class="p">)</span>
+    <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">params_file</span> <span class="o">=</span> <span class="n">generate_inputs</span><span class="p">(</span>
+        <span class="n">crop_model</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">,</span> <span class="n">sampling_model</span><span class="p">,</span> <span class="n">dir_model</span>
+    <span class="p">)</span>
     <span class="n">target_results</span> <span class="o">=</span> <span class="n">generate_outputs</span><span class="p">(</span><span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
     <span class="n">outfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dir_model</span><span class="o">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">dir_model</span><span class="o">.</span><span class="n">simulation_dir</span><span class="p">,</span> <span class="s2">&quot;outputs.csv&quot;</span><span class="p">)</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">target_results</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">out_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">target_results</span><span class="p">)</span>
+    <span class="n">out_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">create_table_artifact</span><span class="p">(</span>
         <span class="n">key</span><span class="o">=</span><span class="s2">&quot;crop-input-data&quot;</span><span class="p">,</span>
         <span class="n">table</span><span class="o">=</span><span class="n">params_list</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;Crop simulation input data.&quot;</span>
     <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">params_file</span><span class="p">,</span> <span class="n">outfile</span>
+
+<div class="viewcode-block" id="log_results">
+<a class="viewcode-back" href="../../flows/generate_data.html#flows.generate_data.log_results">[docs]</a>
+<span class="k">def</span> <span class="nf">log_results</span><span class="p">(</span>
+    <span class="n">tracking_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experiment_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">crop_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">dir_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> 
+    <span class="n">experiment_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">sampling_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">params_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log experiment results to the experiment tracker.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tracking_uri (str):</span>
+<span class="sd">            The tracking URI.</span>
+<span class="sd">        experiment_prefix (str):</span>
+<span class="sd">            The experiment name prefix.</span>
+<span class="sd">        crop_config (dict):</span>
+<span class="sd">            The crop configuration.</span>
+<span class="sd">        dir_config (dict):</span>
+<span class="sd">            The directory configuration.</span>
+<span class="sd">        experiment_config (dict):</span>
+<span class="sd">            The experiment configuration.</span>
+<span class="sd">        sampling_config (dict):</span>
+<span class="sd">            The sampling configuration.</span>
+<span class="sd">        params_file (str):</span>
+<span class="sd">            The parameters file path.</span>
+<span class="sd">        output_file (str):</span>
+<span class="sd">            The output file path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;generate_data&quot;</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tracking_uri</span><span class="p">(</span><span class="n">tracking_uri</span><span class="p">)</span>
+    <span class="n">experiment_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">experiment_prefix</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">existing_exp</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">get_experiment_by_name</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_exp</span><span class="p">:</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">create_experiment</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_experiment</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">)</span>
+
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_tag</span><span class="p">(</span><span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="p">[</span><span class="n">crop_config</span><span class="p">,</span> <span class="n">dir_config</span><span class="p">,</span> <span class="n">experiment_config</span><span class="p">,</span> <span class="n">sampling_config</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="n">params_file</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">end_run</span><span class="p">()</span></div>
+
 
 <span class="c1">######################################</span>
 <span class="c1"># Main</span>
@@ -217,9 +275,17 @@
     <span class="n">crop_model</span> <span class="o">=</span> <span class="n">CropModel</span><span class="p">(</span><span class="o">**</span><span class="n">CROP_CONFIG</span><span class="p">)</span>
     <span class="n">experiment_model</span> <span class="o">=</span> <span class="n">ExperimentModel</span><span class="p">(</span><span class="o">**</span><span class="n">EXPERIMENT_CONFIG</span><span class="p">)</span>
     <span class="n">sampling_model</span> <span class="o">=</span> <span class="n">SamplingModel</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLING_CONFIG</span><span class="p">)</span>
-    <span class="n">generate_data_flow</span><span class="p">(</span><span class="n">dir_model</span><span class="p">,</span> <span class="n">crop_model</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">,</span> <span class="n">sampling_model</span><span class="p">)</span></div>
+    <span class="n">params_file</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="n">generate_data_flow</span><span class="p">(</span>
+        <span class="n">dir_model</span><span class="p">,</span> <span class="n">crop_model</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">,</span> <span class="n">sampling_model</span>
+    <span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">experiment_model</span><span class="o">.</span><span class="n">tracking_enabled</span><span class="p">:</span>
+        <span class="n">log_results</span><span class="p">(</span>
+            <span class="n">experiment_model</span><span class="o">.</span><span class="n">tracking_uri</span><span class="p">,</span> <span class="n">experiment_model</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">CROP_CONFIG</span><span class="p">,</span> 
+            <span class="n">DIR_CONFIG</span><span class="p">,</span> <span class="n">EXPERIMENT_CONFIG</span><span class="p">,</span> <span class="n">SAMPLING_CONFIG</span><span class="p">,</span> <span class="n">params_file</span><span class="p">,</span> <span class="n">output_file</span>
+        <span class="p">)</span></div>
 
+        
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>

@@ -54,6 +54,33 @@
 <h1>Generate Data<a class="headerlink" href="#generate-data" title="Link to this heading">¶</a></h1>
 <p><em>Date published:</em> 01/10/23</p>
 <dl class="py function" id="module-flows.generate_data">
+<dt class="sig sig-object py" id="flows.generate_data.log_results">
+<span class="sig-prename descclassname"><span class="pre">flows.generate_data.</span></span><span class="sig-name descname"><span class="pre">log_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracking_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/flows/generate_data.html#log_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.generate_data.log_results" title="Link to this definition">¶</a></dt>
+<dd><p>Log experiment results to the experiment tracker.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>tracking_uri (str):</dt><dd><p>The tracking URI.</p>
+</dd>
+<dt>experiment_prefix (str):</dt><dd><p>The experiment name prefix.</p>
+</dd>
+<dt>crop_config (dict):</dt><dd><p>The crop configuration.</p>
+</dd>
+<dt>dir_config (dict):</dt><dd><p>The directory configuration.</p>
+</dd>
+<dt>experiment_config (dict):</dt><dd><p>The experiment configuration.</p>
+</dd>
+<dt>sampling_config (dict):</dt><dd><p>The sampling configuration.</p>
+</dd>
+<dt>params_file (str):</dt><dd><p>The parameters file path.</p>
+</dd>
+<dt>output_file (str):</dt><dd><p>The output file path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="flows.generate_data.main">
 <span class="sig-prename descclassname"><span class="pre">flows.generate_data.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DictConfig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/generate_data.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.generate_data.main" title="Link to this definition">¶</a></dt>
 <dd><p>Generate input and output data.</p>
@@ -79,6 +106,7 @@
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Generate Data</a><ul>
+<li><a class="reference internal" href="#flows.generate_data.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
 <li><a class="reference internal" href="#flows.generate_data.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
