@@ -13,7 +13,7 @@ services:
       - ./flows:/project/flows
       - ./conf:/project/conf
       - ./data:/project/data
-    entrypoint: "python"
+    entrypoint: python -m
 
   mlflow:
     image: $GITHUB_CONTAINER_REPO

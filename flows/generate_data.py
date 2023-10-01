@@ -12,6 +12,7 @@ from pathlib import Path
 from pcse.base import ParameterProvider
 from pcse.db import NASAPowerWeatherDataProvider
 from prefect import flow, task
+from prefect.artifacts import create_table_artifact
 from prefect.task_runners import SequentialTaskRunner
 import uuid
 
@@ -73,7 +74,7 @@ def generate_inputs(
     uuids = [str(uuid.uuid4()) for _ in range(sampling_model.n)]
     df["uuid"] = uuids
 
-    outfile = Path(dir_model.data_dir, dir_model.simulation_dir, "simulation_parameters.csv")
+    outfile = Path(dir_model.data_dir, dir_model.simulation_dir, "parameters.csv")
     df.to_csv(str(outfile), index=False)
 
     params_list = df.to_dict(orient="records")
@@ -139,9 +140,14 @@ def generate_data_flow(
     params_list, agro, weather_data, params = generate_inputs(crop_model, experiment_model, sampling_model, dir_model)
     target_results = generate_outputs(params_list, agro, weather_data, params)
 
-    outfile = Path(dir_model.data_dir, dir_model.simulation_dir, "simulation_results.csv")
+    outfile = Path(dir_model.data_dir, dir_model.simulation_dir, "outputs.csv")
     pd.DataFrame(target_results).to_csv(str(outfile), index=False)
 
+    create_table_artifact(
+        key="crop-input-data",
+        table=params_list,
+        description= "Crop simulation input data."
+    )
 
 ######################################
 # Main

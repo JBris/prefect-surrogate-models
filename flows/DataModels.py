@@ -40,6 +40,8 @@ class ExperimentModel(BaseModel):
     tracking_uri: str
     tracking_enabled: bool
     seed: int
+    n_workers: int
+    threads_per_worker: int
 
 class SamplingModel(BaseModel):
     """

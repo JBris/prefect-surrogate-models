@@ -2,3 +2,5 @@ name: prefect_surrogate_models
 seed: 100
 tracking_uri: http://mlflow:5000
 tracking_enabled: true
+n_workers: 1
+threads_per_worker: 10
