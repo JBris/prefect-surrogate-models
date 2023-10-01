@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  process:
+    cmd: python -m flows.process_data
+    deps:
+    - path: conf/config.yaml
+      hash: md5
+      md5: 5c3ffa5a7ef3d8cd033a8ddc81f50e08
+      size: 109
+    - path: conf/dir/default.yaml
+      hash: md5
+      md5: 87455efd4b4c8ec2135f6a99563c819a
+      size: 134
+    - path: conf/experiment/default.yaml
+      hash: md5
+      md5: d7a4485dd221ac6dc16789bb648d4ce3
+      size: 210
+    - path: data/simulation/outputs.csv
+      hash: md5
+      md5: c30ba6b4cbdf668e9a512a146dc64649
+      size: 7210110
+    - path: data/simulation/parameters.csv
+      hash: md5
+      md5: 92c4848712f234b1990df22f1df85976
+      size: 3893437
+    - path: flows/process_data.py
+      hash: md5
+      md5: 63fa024a7aadbb1c0e6da6f1afb42976
+      size: 2198
+    outs:
+    - path: data/processed/test_outputs.csv
+      hash: md5
+      md5: 50381c679c35776c0c27c62f91b6fe01
+      size: 319
+      isexec: true
+    - path: data/processed/test_parameters.csv
+      hash: md5
+      md5: 19bc701285f49552f73c7ebc5585fc20
+      size: 160
+      isexec: true
+    - path: data/processed/train_outputs.csv
+      hash: md5
+      md5: 365c17647d72a04845de395d69fae8b1
+      size: 7183311
+      isexec: true
+    - path: data/processed/train_parameters.csv
+      hash: md5
+      md5: 86b4422a005aefacb9bd21d262c47ade
+      size: 3875066
+      isexec: true

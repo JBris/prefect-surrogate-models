@@ -14,6 +14,7 @@ class DirModel(BaseModel):
     weather_dir: str
     simulation_dir: str
     out_dir: str
+    processed_dir: str
     
 class CropModel(BaseModel):
     """
@@ -42,7 +43,10 @@ class ExperimentModel(BaseModel):
     seed: int
     n_workers: int
     threads_per_worker: int
-
+    parameters_file: str
+    outputs_file: str
+    test_row: int
+    
 class SamplingModel(BaseModel):
     """
     The sampling data model.

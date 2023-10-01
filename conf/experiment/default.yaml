@@ -4,3 +4,6 @@ tracking_uri: http://mlflow:5000
 tracking_enabled: true
 n_workers: 1
 threads_per_worker: 10
+test_row: 0
+parameters_file: parameters.csv
+outputs_file: outputs.csv

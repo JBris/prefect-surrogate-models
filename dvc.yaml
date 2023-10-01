@@ -1,0 +1,15 @@
+stages:
+  process:
+    cmd: python -m flows.process_data 
+    deps:
+    - conf/config.yaml
+    - conf/dir/default.yaml
+    - conf/experiment/default.yaml
+    - flows/process_data.py
+    - data/simulation/parameters.csv
+    - data/simulation/outputs.csv
+    outs:
+    - data/processed/train_parameters.csv
+    - data/processed/test_parameters.csv
+    - data/processed/train_outputs.csv
+    - data/processed/test_outputs.csv

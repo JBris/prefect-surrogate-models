@@ -4,4 +4,4 @@ crop_dir: crop
 weather_dir: meteo
 simulation_dir: simulation
 out_dir: out
-    
+processed_dir: processed
