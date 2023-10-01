@@ -2,4 +2,6 @@ data_dir: data
 agro_dir: agro
 crop_dir: crop
 weather_dir: meteo
+simulation_dir: simulation
 out_dir: out
+    

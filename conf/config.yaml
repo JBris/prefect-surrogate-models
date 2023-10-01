@@ -2,9 +2,5 @@ defaults:
   - _self_
   - crop: sugarbeet
   - dir: default
-  - experiment_tracking: docker
+  - experiment: default
   - sampling: wofost
-  
-experiment:
-  name: prefect_surrogate_models
-  seed: 100

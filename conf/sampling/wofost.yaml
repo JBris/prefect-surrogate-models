@@ -1,4 +1,4 @@
-n: 100
+n: 30000
 params: 
   TSUM1:
     lb: 500
