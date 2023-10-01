@@ -10,10 +10,7 @@ services:
     environment:
       PREFECT_API_URL: $PREFECT_API_URL
     volumes:
-      - ./flows:/project/flows
-      - ./conf:/project/conf
-      - ./data:/project/data
-    entrypoint: python -m
+      - .:/project
 
   mlflow:
     image: $GITHUB_CONTAINER_REPO

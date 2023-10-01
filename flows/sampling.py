@@ -55,7 +55,8 @@ def get_inputs(
         longitude (float):
             The crop longitude.
         WAV (float):
-
+            The  initial soil moisture content.
+            
     Returns:
         tuple[
             dict, NASAPowerWeatherDataProvider, YAMLCropDataProvider, DummySoilDataProvider, WOFOST72SiteDataProvider

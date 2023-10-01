@@ -25,8 +25,8 @@ stages:
       size: 3893437
     - path: flows/process_data.py
       hash: md5
-      md5: 63fa024a7aadbb1c0e6da6f1afb42976
-      size: 2198
+      md5: 19b4e5aa2479f2e95e0f03998c76a638
+      size: 5100
     outs:
     - path: data/processed/test_outputs.csv
       hash: md5

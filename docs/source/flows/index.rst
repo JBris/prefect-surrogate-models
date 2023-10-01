@@ -8,3 +8,4 @@ Prefect Surrogate Models Flows
    DataModels.rst
    generate_data.rst
    sampling.rst
+   process_data.rst
