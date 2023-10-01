@@ -64,6 +64,8 @@
 <span class="c1"># Functions</span>
 <span class="c1">######################################</span>
 
+<div class="viewcode-block" id="load_data">
+<a class="viewcode-back" href="../../flows/process_data.html#flows.process_data.load_data">[docs]</a>
 <span class="nd">@task</span>
 <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span>
     <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">simulation_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputs_file</span><span class="p">:</span> <span class="nb">str</span>
@@ -96,7 +98,8 @@
     <span class="n">outputs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">outputs_file</span><span class="p">))</span>
     <span class="n">test_uuid</span> <span class="o">=</span> <span class="n">parameters_df</span><span class="o">.</span><span class="n">uuid</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">parameters_df</span><span class="p">,</span> <span class="n">outputs_df</span><span class="p">,</span> <span class="n">test_uuid</span>
+    <span class="k">return</span> <span class="n">parameters_df</span><span class="p">,</span> <span class="n">outputs_df</span><span class="p">,</span> <span class="n">test_uuid</span></div>
+
 
 <div class="viewcode-block" id="save_processed_df">
 <a class="viewcode-back" href="../../flows/process_data.html#flows.process_data.save_processed_df">[docs]</a>
@@ -146,6 +149,8 @@
     <span class="k">return</span> <span class="n">train_outfile</span><span class="p">,</span> <span class="n">test_outfile</span></div>
 
 
+<div class="viewcode-block" id="save_processed_dfs">
+<a class="viewcode-back" href="../../flows/process_data.html#flows.process_data.save_processed_dfs">[docs]</a>
 <span class="nd">@task</span>
 <span class="k">def</span> <span class="nf">save_processed_dfs</span><span class="p">(</span>
     <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">processed_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputs_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -184,8 +189,11 @@
         <span class="n">outputs_df</span>
     <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">train_parameters_file</span><span class="p">,</span> <span class="n">test_parameters_file</span><span class="p">,</span> <span class="n">train_outputs_file</span><span class="p">,</span> <span class="n">test_outputs_file</span>
+    <span class="k">return</span> <span class="n">train_parameters_file</span><span class="p">,</span> <span class="n">test_parameters_file</span><span class="p">,</span> <span class="n">train_outputs_file</span><span class="p">,</span> <span class="n">test_outputs_file</span></div>
 
+
+<div class="viewcode-block" id="process_data_flow">
+<a class="viewcode-back" href="../../flows/process_data.html#flows.process_data.process_data_flow">[docs]</a>
 <span class="nd">@flow</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Process Data&quot;</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Create a train-test split for processed data.&quot;</span><span class="p">,</span>
@@ -215,7 +223,8 @@
         <span class="n">experiment_model</span><span class="o">.</span><span class="n">outputs_file</span><span class="p">,</span> <span class="n">test_uuid</span><span class="p">,</span> <span class="n">parameters_df</span><span class="p">,</span> <span class="n">outputs_df</span>
     <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">train_parameters_file</span><span class="p">,</span> <span class="n">test_parameters_file</span><span class="p">,</span> <span class="n">train_outputs_file</span><span class="p">,</span> <span class="n">test_outputs_file</span>
+    <span class="k">return</span> <span class="n">train_parameters_file</span><span class="p">,</span> <span class="n">test_parameters_file</span><span class="p">,</span> <span class="n">train_outputs_file</span><span class="p">,</span> <span class="n">test_outputs_file</span></div>
+
 
 <div class="viewcode-block" id="log_results">
 <a class="viewcode-back" href="../../flows/process_data.html#flows.process_data.log_results">[docs]</a>

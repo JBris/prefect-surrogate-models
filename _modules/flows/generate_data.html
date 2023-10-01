@@ -75,6 +75,8 @@
 <span class="c1"># Functions</span>
 <span class="c1">######################################</span>
 
+<div class="viewcode-block" id="generate_inputs">
+<a class="viewcode-back" href="../../flows/generate_data.html#flows.generate_data.generate_inputs">[docs]</a>
 <span class="nd">@task</span>
 <span class="k">def</span> <span class="nf">generate_inputs</span><span class="p">(</span>
     <span class="n">crop_model</span><span class="p">:</span> <span class="n">CropModel</span><span class="p">,</span> <span class="n">experiment_model</span><span class="p">:</span> <span class="n">ExperimentModel</span><span class="p">,</span> 
@@ -123,8 +125,11 @@
     <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">params_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">outfile</span>
+    <span class="k">return</span> <span class="n">params_list</span><span class="p">,</span> <span class="n">agro</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">outfile</span></div>
 
+
+<div class="viewcode-block" id="generate_outputs">
+<a class="viewcode-back" href="../../flows/generate_data.html#flows.generate_data.generate_outputs">[docs]</a>
 <span class="nd">@task</span>
 <span class="k">def</span> <span class="nf">generate_outputs</span><span class="p">(</span>
     <span class="n">params_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">agro</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">:</span> <span class="n">NASAPowerWeatherDataProvider</span><span class="p">,</span> 
@@ -157,8 +162,11 @@
         <span class="n">sim_results</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">id</span>
         <span class="n">target_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sim_results</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">target_results</span>
+    <span class="k">return</span> <span class="n">target_results</span></div>
 
+
+<div class="viewcode-block" id="generate_data_flow">
+<a class="viewcode-back" href="../../flows/generate_data.html#flows.generate_data.generate_data_flow">[docs]</a>
 <span class="nd">@flow</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Generate Data&quot;</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Generate input and output data for the simulation.&quot;</span><span class="p">,</span>
@@ -201,7 +209,8 @@
         <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;Crop simulation input data.&quot;</span>
     <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">params_file</span><span class="p">,</span> <span class="n">outfile</span>
+    <span class="k">return</span> <span class="n">params_file</span><span class="p">,</span> <span class="n">outfile</span></div>
+
 
 <div class="viewcode-block" id="log_results">
 <a class="viewcode-back" href="../../flows/generate_data.html#flows.generate_data.log_results">[docs]</a>

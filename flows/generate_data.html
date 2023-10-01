@@ -93,6 +93,78 @@
 </dl>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.generate_data.generate_data_flow">
+<span class="sig-prename descclassname"><span class="pre">flows.generate_data.</span></span><span class="sig-name descname"><span class="pre">generate_data_flow</span></span><a class="reference internal" href="../_modules/flows/generate_data.html#generate_data_flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.generate_data.generate_data_flow" title="Link to this definition">¶</a></dt>
+<dd><p>The data generation flow.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>dir_model (DirModel): </dt><dd><p>The directory data model.</p>
+</dd>
+<dt>crop_model (CropModel): </dt><dd><p>The crop data model.</p>
+</dd>
+<dt>experiment_model (ExperimentModel): </dt><dd><p>The experiment data model.</p>
+</dd>
+<dt>sampling_model (SamplingModel): </dt><dd><p>The sampling data model.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[str, str]: </dt><dd><p>The parameter and output file paths.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.generate_data.generate_outputs">
+<span class="sig-prename descclassname"><span class="pre">flows.generate_data.</span></span><span class="sig-name descname"><span class="pre">generate_outputs</span></span><a class="reference internal" href="../_modules/flows/generate_data.html#generate_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.generate_data.generate_outputs" title="Link to this definition">¶</a></dt>
+<dd><p>Generate output data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>params_list (list[dict]): </dt><dd><p>The parameter list.</p>
+</dd>
+<dt>agro (dict): </dt><dd><p>The agronomy configuration.</p>
+</dd>
+<dt>weather_data (NASAPowerWeatherDataProvider): </dt><dd><p>The weather data provider.</p>
+</dd>
+<dt>params (ParameterProvider): </dt><dd><p>The parameter provider.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>list[dict]: </dt><dd><p>The simulation output data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.generate_data.generate_inputs">
+<span class="sig-prename descclassname"><span class="pre">flows.generate_data.</span></span><span class="sig-name descname"><span class="pre">generate_inputs</span></span><a class="reference internal" href="../_modules/flows/generate_data.html#generate_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.generate_data.generate_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>Generate input data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>crop_model (CropModel):</dt><dd><p>The crop data model.</p>
+</dd>
+<dt>experiment_model (ExperimentModel):</dt><dd><p>The experiment data model.</p>
+</dd>
+<dt>sampling_model (SamplingModel): </dt><dd><p>The sampling data model.</p>
+</dd>
+<dt>dir_model (DirModel): </dt><dd><p>The directory data model.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>list[dict]: </dt><dd><p>The input data list.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -108,6 +180,9 @@
 <li><a class="reference internal" href="#">Generate Data</a><ul>
 <li><a class="reference internal" href="#flows.generate_data.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
 <li><a class="reference internal" href="#flows.generate_data.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#flows.generate_data.generate_data_flow"><code class="docutils literal notranslate"><span class="pre">generate_data_flow</span></code></a></li>
+<li><a class="reference internal" href="#flows.generate_data.generate_outputs"><code class="docutils literal notranslate"><span class="pre">generate_outputs</span></code></a></li>
+<li><a class="reference internal" href="#flows.generate_data.generate_inputs"><code class="docutils literal notranslate"><span class="pre">generate_inputs</span></code></a></li>
 </ul>
 </li>
 </ul>

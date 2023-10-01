@@ -115,6 +115,80 @@
 </dl>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.process_data.process_data_flow">
+<span class="sig-prename descclassname"><span class="pre">flows.process_data.</span></span><span class="sig-name descname"><span class="pre">process_data_flow</span></span><a class="reference internal" href="../_modules/flows/process_data.html#process_data_flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.process_data.process_data_flow" title="Link to this definition">¶</a></dt>
+<dd><p>The data processing flow.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>dir_model (DirModel):   </dt><dd><p>The directory data model.</p>
+</dd>
+<dt>experiment_model (ExperimentModel):     </dt><dd><p>The experiment data model.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[str, str, str, str]: </dt><dd><p>The train-test parameter and output file names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.process_data.load_data">
+<span class="sig-prename descclassname"><span class="pre">flows.process_data.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><a class="reference internal" href="../_modules/flows/process_data.html#load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.process_data.load_data" title="Link to this definition">¶</a></dt>
+<dd><p>Load the parameters and outputs dataframes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data_dir (str): </dt><dd><p>The data directory.</p>
+</dd>
+<dt>simulation_dir (str): </dt><dd><p>The simulation directory.</p>
+</dd>
+<dt>parameters_file (str): </dt><dd><p>The parameters dataframe filename.</p>
+</dd>
+<dt>outputs_file (str):</dt><dd><p>The outputs dataframe filename.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[pd.DataFrame, pd.DataFrame, str]: </dt><dd><p>The parameters and outputs dataframes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.process_data.save_processed_dfs">
+<span class="sig-prename descclassname"><span class="pre">flows.process_data.</span></span><span class="sig-name descname"><span class="pre">save_processed_dfs</span></span><a class="reference internal" href="../_modules/flows/process_data.html#save_processed_dfs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.process_data.save_processed_dfs" title="Link to this definition">¶</a></dt>
+<dd><p>Save the processed dataframes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data_dir (str): </dt><dd><p>The data directory.</p>
+</dd>
+<dt>processed_dir (str): </dt><dd><p>The processed data directory.</p>
+</dd>
+<dt>parameters_file (str): </dt><dd><p>The parameters dataframe file.</p>
+</dd>
+<dt>outputs_file (str): </dt><dd><p>The outputs dataframe file.</p>
+</dd>
+<dt>test_uuid (str): </dt><dd><p>The test UUID value.</p>
+</dd>
+<dt>parameters_df (pd.DataFrame): </dt><dd><p>The parameters dataframe.</p>
+</dd>
+<dt>outputs_df (pd.DataFrame): </dt><dd><p>The outputs dataframe.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[str, str, str, str]: </dt><dd><p>The train-test parameter and output file names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -131,6 +205,9 @@
 <li><a class="reference internal" href="#flows.process_data.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
 <li><a class="reference internal" href="#flows.process_data.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li><a class="reference internal" href="#flows.process_data.save_processed_df"><code class="docutils literal notranslate"><span class="pre">save_processed_df()</span></code></a></li>
+<li><a class="reference internal" href="#flows.process_data.process_data_flow"><code class="docutils literal notranslate"><span class="pre">process_data_flow</span></code></a></li>
+<li><a class="reference internal" href="#flows.process_data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data</span></code></a></li>
+<li><a class="reference internal" href="#flows.process_data.save_processed_dfs"><code class="docutils literal notranslate"><span class="pre">save_processed_dfs</span></code></a></li>
 </ul>
 </li>
 </ul>
