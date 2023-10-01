@@ -1,0 +1,2 @@
+tracking_uri: http://mlflow:5000
+enabled: true

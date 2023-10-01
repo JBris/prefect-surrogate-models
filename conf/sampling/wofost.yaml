@@ -1,0 +1,17 @@
+n: 100
+params: 
+  TSUM1:
+    lb: 500
+    ub: 800
+  TSUM2:
+    lb: 1200
+    ub: 1600
+  SPAN:
+    lb: 28
+    ub: 37
+  Q10:
+    lb: 1.8
+    ub: 2.2
+  TDWI:
+    lb: 0.4
+    ub: 0.6

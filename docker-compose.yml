@@ -6,11 +6,13 @@ services:
     image: $GITHUB_CONTAINER_REPO
     container_name: ${PROJECT_NAME}-prefect-cli
     env_file: .env
-    working_dir: /flows
+    working_dir: /project
     environment:
       PREFECT_API_URL: $PREFECT_API_URL
     volumes:
-      - ./flows:/flows
+      - ./flows:/project/flows
+      - ./conf:/project/conf
+      - ./data:/project/data
     entrypoint: "python"
 
   mlflow:
@@ -27,9 +29,12 @@ services:
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     ports:
       - ${MLFLOW_PORT}:5000
+    volumes:
+      - mlflow-prometheus-data:/prometheus
     command: >
       mlflow server --serve-artifacts --host 0.0.0.0 --port 5000 
       --backend-store-uri "${MLFLOW_BACKEND_STORE_URI}" --default-artifact-root s3://mlflow/
+      --expose-prometheus /prometheus
 
   prefect-server:
     image: prefecthq/prefect:${PREFECT_TAG}
@@ -117,6 +122,22 @@ services:
     volumes:
       - prefect-postgres-data:/var/lib/postgresql/data
 
+  grafana:
+    image: grafana/grafana:${GRAFANA_TAG}
+    container_name: ${PROJECT_NAME}-grafana
+    hostname: grafana
+    restart: unless-stopped
+    stop_grace_period: 10s
+    env_file: .env
+    user: '0'
+    ports:
+      - ${GRAFANA_PORT}:3000
+    environment:
+      GF_INSTALL_PLUGINS: $GF_INSTALL_PLUGINS
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./services/grafana/grafana.ini:/etc/grafana/grafana.ini
+      
   postgres:
     image: postgres:${POSTGRES_TAG}
     container_name: ${PROJECT_NAME}-postgres
@@ -163,9 +184,12 @@ networks:
     driver: bridge
     
 volumes:
+  mlflow-prometheus-data: {}
   prefect-data: {}
   postgres-data: {}
   prefect-postgres-data: {}
   minio-data: {}
+  grafana-data: {}
   portainer-data: {}
+  
 

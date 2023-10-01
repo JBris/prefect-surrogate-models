@@ -159,3 +159,6 @@ cython_debug/
 #.idea/
 
 *.db
+*.pkl
+*.cache
+.hydra
