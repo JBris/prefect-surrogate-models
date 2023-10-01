@@ -1,0 +1,5 @@
+data_dir: data
+agro_dir: agro
+crop_dir: crop
+weather_dir: meteo
+out_dir: out
