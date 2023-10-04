@@ -214,7 +214,7 @@ protobuf==4.24.3
 psutil==5.9.5
 psycopg2==2.9.6
 ptyprocess==0.7.0
-pyarrow==12.0.1
+pyarrow==13.0.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
 pycodestyle==2.11.0
