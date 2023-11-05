@@ -142,7 +142,7 @@ jupyterlab-widgets==1.1.7
 kiwisolver==1.4.5
 kombu==5.3.2
 kubernetes==28.1.0
-linear-operator==0.4.0
+linear-operator==0.5.2
 lit==16.0.6
 locket==1.0.0
 logical-unification==0.4.6
