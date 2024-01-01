@@ -188,7 +188,7 @@ oauthlib==3.2.2
 omegaconf==2.3.0
 openpyxl==3.1.2
 opt-einsum==3.3.0
-optuna==3.2.0
+optuna==3.5.0
 orjson==3.9.6
 packaging==23.1
 pandas==2.0.2
