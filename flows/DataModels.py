@@ -30,6 +30,8 @@ class DataModel(BaseModel):
     output_dir: str
     parameters_file: str
     outputs_file: str
+    parameters_test_file: str
+    outputs_test_file: str
     inputs: list[str]
     outputs: list[str]
     

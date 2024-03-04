@@ -3,6 +3,8 @@ input_dir: simulation
 output_dir: output
 parameters_file: parameters.csv
 outputs_file: outputs.csv
+parameters_test_file: parameters_test.csv
+outputs_test_file: outputs_test.csv
 inputs: 
   - TSUM1
   - TSUM2
