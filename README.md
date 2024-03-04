@@ -44,7 +44,7 @@ The pipeline is composed of the following steps:
 
 # Python Environment
 
-[Python dependencies are specified in this requirements.txt file.](services/python/requirements.txt). 
+[Python dependencies are specified in this requirements.txt file.](services/python/requirements.txt)
 
 These dependencies are installed during the build process for the following Docker image: ghcr.io/jbris/prefect-surrogate-models:1.0.0
 
