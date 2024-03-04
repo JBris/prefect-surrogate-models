@@ -1,0 +1,7 @@
+params:
+  consider_prior: true
+  prior_weight: 1.0
+  consider_endpoints: false
+  n_startup_trials: 10
+n_trials: 300
+n_jobs: -1

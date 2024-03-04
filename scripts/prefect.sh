@@ -2,4 +2,7 @@
 
 . .env
 
-docker compose run --rm prefect-cli python -m flows.${@}
+CMD="docker compose run --rm prefect-cli python -m flows"
+
+# ${CMD}.generate_data
+${CMD}.fit_surrogate

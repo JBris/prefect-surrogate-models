@@ -1,6 +1,9 @@
 defaults:
   - _self_
   - crop: sugarbeet
+  - data: default
   - dir: default
   - experiment: default
+  - optimise: tpes
   - sampling: wofost
+  - surrogate: gp

@@ -6,6 +6,7 @@ Prefect Surrogate Models Flows
    :caption: Contents:
 
    DataModels.rst
+   fit_surrogate.rst
    generate_data.rst
    sampling.rst
    process_data.rst

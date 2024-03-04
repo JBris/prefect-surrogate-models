@@ -16,6 +16,23 @@ class DirModel(BaseModel):
     out_dir: str
     processed_dir: str
     
+class DataModel(BaseModel):
+    """
+    The data model.
+
+    Args:
+        BaseModel (_type_):
+            The Base model class.
+    """
+
+    data_dir: str
+    input_dir: str
+    output_dir: str
+    parameters_file: str
+    outputs_file: str
+    inputs: list[str]
+    outputs: list[str]
+    
 class CropModel(BaseModel):
     """
     The crop data model.
@@ -57,3 +74,30 @@ class SamplingModel(BaseModel):
     """
     params: dict
     n: int
+
+class SurrogateModel(BaseModel):
+    """
+    The surrogate model.
+
+    Args:
+        BaseModel (_type_):
+            The Base model class.
+    """
+    name: str
+    num_latents: int
+    num_epochs: int
+    lr: float
+
+
+class OptimisationModel(BaseModel):
+    """
+    The optimisation model.
+
+    Args:
+        BaseModel (_type_):
+            The Base model class.
+    """
+
+    n_trials: int
+    n_jobs: int
+    params: dict

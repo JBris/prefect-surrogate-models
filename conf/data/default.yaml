@@ -1,0 +1,15 @@
+data_dir: data
+input_dir: simulation
+output_dir: output
+parameters_file: parameters.csv
+outputs_file: outputs.csv
+inputs: 
+  - TSUM1
+  - TSUM2
+  - SPAN
+  - Q10
+  - TDWI
+outputs: 
+  - TWLV
+  - TWST
+  - TWRT
