@@ -1,0 +1,184 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Library &#8212; Prefect Surrogate Models  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Models" href="DataModels.html" />
+    <link rel="prev" title="Prefect Surrogate Models Flows" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="DataModels.html" title="Data Models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prefect Surrogate Models Flows"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Library</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="data-library">
+<h1>Data Library<a class="headerlink" href="#data-library" title="Link to this heading">¶</a></h1>
+<p><em>Date published:</em> 04/03/24</p>
+<dl class="py data" id="module-flows.data">
+<dt class="sig sig-object py" id="flows.data.load_data">
+<span class="sig-prename descclassname"><span class="pre">flows.data.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><a class="reference internal" href="../_modules/flows/data.html#load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.data.load_data" title="Link to this definition">¶</a></dt>
+<dd><p>Load the parameters and outputs dataframes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data_dir (str):</dt><dd><p>The data directory.</p>
+</dd>
+<dt>input_dir (str):</dt><dd><p>The data input directory.</p>
+</dd>
+<dt>parameters_file (str):</dt><dd><p>The parameters dataframe filename.</p>
+</dd>
+<dt>outputs_file (str):</dt><dd><p>The outputs dataframe filename.</p>
+</dd>
+<dt>inputs (list[str]):</dt><dd><p>The list of input columns.</p>
+</dd>
+<dt>outputs (list[str]):</dt><dd><p>The list of output columns.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:</dt><dd><p>The parameters and outputs dataframes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="flows.data.to_tensor">
+<span class="sig-prename descclassname"><span class="pre">flows.data.</span></span><span class="sig-name descname"><span class="pre">to_tensor</span></span><a class="reference internal" href="../_modules/flows/data.html#to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.data.to_tensor" title="Link to this definition">¶</a></dt>
+<dd><p>Convert dataframes to tensors.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>parameters_df (pd.DataFrame):</dt><dd><p>The parameter dataframe.</p>
+</dd>
+<dt>outputs_df (pd.DataFrame):</dt><dd><p>The output dataframe.</p>
+</dd>
+<dt>device (torch.cuda.device):</dt><dd><p>The tensor device.</p>
+</dd>
+<dt>scaler (MinMaxScaler):</dt><dd><p>The data scaler.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple[torch.Tensor, torch.Tensor]:</dt><dd><p>The parameter and output tensors.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data Library</a><ul>
+<li><a class="reference internal" href="#flows.data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data</span></code></a></li>
+<li><a class="reference internal" href="#flows.data.to_tensor"><code class="docutils literal notranslate"><span class="pre">to_tensor</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Prefect Surrogate Models Flows</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="DataModels.html"
+                          title="next chapter">Data Models</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/flows/data.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="DataModels.html" title="Data Models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prefect Surrogate Models Flows"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Prefect Surrogate Models Flows</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Library</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, James Bristow.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    </div>
+  </body>
+</html>

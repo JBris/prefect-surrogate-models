@@ -3,6 +3,9 @@ Data Models
 
 *Date published:* |today|
 
+.. autoclass:: flows.DataModels.DataModel     
+   :members: 
+
 .. autoclass:: flows.DataModels.DirModel     
    :members: 
 
@@ -13,4 +16,10 @@ Data Models
    :members: 
 
 .. autoclass:: flows.DataModels.SamplingModel     
+   :members: 
+
+.. autoclass:: flows.DataModels.SurrogateModel     
+   :members: 
+
+.. autoclass:: flows.DataModels.OptimisationModel     
    :members: 

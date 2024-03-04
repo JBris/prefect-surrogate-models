@@ -63,6 +63,28 @@
     <span class="n">processed_dir</span><span class="p">:</span> <span class="nb">str</span></div>
 
     
+<div class="viewcode-block" id="DataModel">
+<a class="viewcode-back" href="../../flows/DataModels.html#flows.DataModels.DataModel">[docs]</a>
+<span class="k">class</span> <span class="nc">DataModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The data model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        BaseModel (_type_):</span>
+<span class="sd">            The Base model class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">outputs_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters_test_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">outputs_test_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">inputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
+
+    
 <div class="viewcode-block" id="CropModel">
 <a class="viewcode-back" href="../../flows/DataModels.html#flows.DataModels.CropModel">[docs]</a>
 <span class="k">class</span> <span class="nc">CropModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -112,6 +134,39 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+<div class="viewcode-block" id="SurrogateModel">
+<a class="viewcode-back" href="../../flows/DataModels.html#flows.DataModels.SurrogateModel">[docs]</a>
+<span class="k">class</span> <span class="nc">SurrogateModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The surrogate model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        BaseModel (_type_):</span>
+<span class="sd">            The Base model class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">num_latents</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">num_epochs</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span></div>
+
+
+
+<div class="viewcode-block" id="OptimisationModel">
+<a class="viewcode-back" href="../../flows/DataModels.html#flows.DataModels.OptimisationModel">[docs]</a>
+<span class="k">class</span> <span class="nc">OptimisationModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The optimisation model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        BaseModel (_type_):</span>
+<span class="sd">            The Base model class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n_trials</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span></div>
 
 </pre></div>
 

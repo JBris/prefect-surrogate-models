@@ -17,8 +17,8 @@
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Generate Data" href="generate_data.html" />
-    <link rel="prev" title="Prefect Surrogate Models Flows" href="index.html" />
+    <link rel="next" title="Experiment Library" href="experiment.html" />
+    <link rel="prev" title="Data Library" href="data.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -34,10 +34,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="generate_data.html" title="Generate Data"
+          <a href="experiment.html" title="Experiment Library"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Prefect Surrogate Models Flows"
+          <a href="data.html" title="Data Library"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Prefect Surrogate Models Flows</a> &#187;</li>
@@ -52,7 +52,20 @@
             
   <section id="data-models">
 <h1>Data Models<a class="headerlink" href="#data-models" title="Link to this heading">¶</a></h1>
-<p><em>Date published:</em> 01/10/23</p>
+<p><em>Date published:</em> 04/03/24</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.DataModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">DataModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_test_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs_test_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#DataModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.DataModel" title="Link to this definition">¶</a></dt>
+<dd><p>The data model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_):</dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="flows.DataModels.DirModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">DirModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agro_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processed_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#DirModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.DirModel" title="Link to this definition">¶</a></dt>
@@ -105,6 +118,32 @@
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.SurrogateModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">SurrogateModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_latents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#SurrogateModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.SurrogateModel" title="Link to this definition">¶</a></dt>
+<dd><p>The surrogate model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_):</dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flows.DataModels.OptimisationModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flows.DataModels.</span></span><span class="sig-name descname"><span class="pre">OptimisationModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/flows/DataModels.html#OptimisationModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flows.DataModels.OptimisationModel" title="Link to this definition">¶</a></dt>
+<dd><p>The optimisation model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>BaseModel (_type_):</dt><dd><p>The Base model class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -118,10 +157,13 @@
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Data Models</a><ul>
+<li><a class="reference internal" href="#flows.DataModels.DataModel"><code class="docutils literal notranslate"><span class="pre">DataModel</span></code></a></li>
 <li><a class="reference internal" href="#flows.DataModels.DirModel"><code class="docutils literal notranslate"><span class="pre">DirModel</span></code></a></li>
 <li><a class="reference internal" href="#flows.DataModels.CropModel"><code class="docutils literal notranslate"><span class="pre">CropModel</span></code></a></li>
 <li><a class="reference internal" href="#flows.DataModels.ExperimentModel"><code class="docutils literal notranslate"><span class="pre">ExperimentModel</span></code></a></li>
 <li><a class="reference internal" href="#flows.DataModels.SamplingModel"><code class="docutils literal notranslate"><span class="pre">SamplingModel</span></code></a></li>
+<li><a class="reference internal" href="#flows.DataModels.SurrogateModel"><code class="docutils literal notranslate"><span class="pre">SurrogateModel</span></code></a></li>
+<li><a class="reference internal" href="#flows.DataModels.OptimisationModel"><code class="docutils literal notranslate"><span class="pre">OptimisationModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -129,13 +171,13 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="index.html"
-                          title="previous chapter">Prefect Surrogate Models Flows</a></p>
+    <p class="topless"><a href="data.html"
+                          title="previous chapter">Data Library</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="generate_data.html"
-                          title="next chapter">Generate Data</a></p>
+    <p class="topless"><a href="experiment.html"
+                          title="next chapter">Experiment Library</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -168,10 +210,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="generate_data.html" title="Generate Data"
+          <a href="experiment.html" title="Experiment Library"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Prefect Surrogate Models Flows"
+          <a href="data.html" title="Data Library"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Prefect Surrogate Models  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Prefect Surrogate Models Flows</a> &#187;</li>

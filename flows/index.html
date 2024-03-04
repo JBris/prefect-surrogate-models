@@ -17,7 +17,7 @@
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Models" href="DataModels.html" />
+    <link rel="next" title="Data Library" href="data.html" />
     <link rel="prev" title="Welcome to Prefect Surrogate Models’s documentation!" href="../index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -34,7 +34,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="DataModels.html" title="Data Models"
+          <a href="data.html" title="Data Library"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../index.html" title="Welcome to Prefect Surrogate Models’s documentation!"
@@ -54,11 +54,31 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#flows.data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html#flows.data.to_tensor"><code class="docutils literal notranslate"><span class="pre">to_tensor</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="DataModels.html">Data Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.DataModel"><code class="docutils literal notranslate"><span class="pre">DataModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.DirModel"><code class="docutils literal notranslate"><span class="pre">DirModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.CropModel"><code class="docutils literal notranslate"><span class="pre">CropModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.ExperimentModel"><code class="docutils literal notranslate"><span class="pre">ExperimentModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.SamplingModel"><code class="docutils literal notranslate"><span class="pre">SamplingModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.SurrogateModel"><code class="docutils literal notranslate"><span class="pre">SurrogateModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataModels.html#flows.DataModels.OptimisationModel"><code class="docutils literal notranslate"><span class="pre">OptimisationModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html#flows.experiment.begin_experiment"><code class="docutils literal notranslate"><span class="pre">begin_experiment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html#flows.experiment.get_experiment_name"><code class="docutils literal notranslate"><span class="pre">get_experiment_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fit_surrogate.html">Fit Surrogate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fit_surrogate.html#flows.fit_surrogate.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_surrogate.html#flows.fit_surrogate.fit_surrogate_flow"><code class="docutils literal notranslate"><span class="pre">fit_surrogate_flow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_surrogate.html#flows.fit_surrogate.fit_model"><code class="docutils literal notranslate"><span class="pre">fit_model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_surrogate.html#flows.fit_surrogate.log_model"><code class="docutils literal notranslate"><span class="pre">log_model</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="generate_data.html">Generate Data</a><ul>
@@ -69,6 +89,16 @@
 <li class="toctree-l2"><a class="reference internal" href="generate_data.html#flows.generate_data.generate_inputs"><code class="docutils literal notranslate"><span class="pre">generate_inputs</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="optimise_surrogate.html">Optimise Surrogate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process_data.html">Process Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.save_processed_df"><code class="docutils literal notranslate"><span class="pre">save_processed_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.process_data_flow"><code class="docutils literal notranslate"><span class="pre">process_data_flow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.save_processed_dfs"><code class="docutils literal notranslate"><span class="pre">save_processed_dfs</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sampling.html">Sampling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sampling.html#flows.sampling.get_inputs"><code class="docutils literal notranslate"><span class="pre">get_inputs()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="sampling.html#flows.sampling.get_param_provider"><code class="docutils literal notranslate"><span class="pre">get_param_provider()</span></code></a></li>
@@ -77,13 +107,9 @@
 <li class="toctree-l2"><a class="reference internal" href="sampling.html#flows.sampling.set_override"><code class="docutils literal notranslate"><span class="pre">set_override()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="process_data.html">Process Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.save_processed_df"><code class="docutils literal notranslate"><span class="pre">save_processed_df()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.process_data_flow"><code class="docutils literal notranslate"><span class="pre">process_data_flow</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.load_data"><code class="docutils literal notranslate"><span class="pre">load_data</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_data.html#flows.process_data.save_processed_dfs"><code class="docutils literal notranslate"><span class="pre">save_processed_dfs</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="surrogate.html">Surrogate Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="surrogate.html#flows.surrogate.MultitaskVariationalGPModel"><code class="docutils literal notranslate"><span class="pre">MultitaskVariationalGPModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="surrogate.html#flows.surrogate.load_surrogate"><code class="docutils literal notranslate"><span class="pre">load_surrogate</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -104,8 +130,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="DataModels.html"
-                          title="next chapter">Data Models</a></p>
+    <p class="topless"><a href="data.html"
+                          title="next chapter">Data Library</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -138,7 +164,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="DataModels.html" title="Data Models"
+          <a href="data.html" title="Data Library"
              >next</a> |</li>
         <li class="right" >
           <a href="../index.html" title="Welcome to Prefect Surrogate Models’s documentation!"
