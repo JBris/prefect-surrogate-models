@@ -19,13 +19,13 @@ Website: [Prefect Surrogate Models](https://jbris.github.io/prefect-surrogate-mo
 
 The purpose of this project is to provide a simple demonstration of how to construct a Prefect pipeline, with MLOps integration, to orchestrate the creation of machine learning surrogate models as applied to mechanistic crop models. 
 
-We use this machine learning model (a Gaussian process) to support various downstream model calibration tasks. In the example here, we perform global optimisation. [Note that the demonstrated approach is different from Bayesian optimisation](https://botorch.org/docs/introduction).
+We use this machine learning model (a Gaussian process) to support various downstream model calibration tasks. In the example here, we perform global optimisation. [Note that the demonstrated approach is different from Bayesian optimisation.](https://botorch.org/docs/introduction)
 
-[Our mechanistic crop model is WOFOST, as implemented in the Python Crop Simulation Environment library.](https://pcse.readthedocs.io).
+[Our mechanistic crop model is WOFOST, as implemented in the Python Crop Simulation Environment library.](https://pcse.readthedocs.io)
 
-[For building Gaussian processes, we use GPyTorch.](https://gpytorch.ai/).
+[For building Gaussian processes, we use GPyTorch.](https://gpytorch.ai/)
 
-[For performing optimisation, we use Optuna.](https://optuna.org/).
+[For performing optimisation, we use Optuna.](https://optuna.org/)
 
 # The Prefect pipeline
 
