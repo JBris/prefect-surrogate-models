@@ -1,4 +1,4 @@
 name: surrogate_model
 num_latents: 90
-num_epochs: 10
+num_epochs: 3000
 lr: 0.01

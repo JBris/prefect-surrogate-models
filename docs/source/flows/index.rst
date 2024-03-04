@@ -14,4 +14,3 @@ Prefect Surrogate Models Flows
    process_data.rst
    sampling.rst
    surrogate.rst
-   process_data.rst

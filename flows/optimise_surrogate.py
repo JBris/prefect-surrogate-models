@@ -16,6 +16,7 @@ import optuna
 from optuna.samplers import TPESampler
 import pandas as pd
 from pathlib import Path
+from prefect.artifacts import create_table_artifact
 from prefect import flow, task
 from prefect.task_runners import SequentialTaskRunner
 from sklearn.preprocessing import MinMaxScaler
@@ -163,9 +164,23 @@ def optimise_model(
     trials_df.to_csv(trials_out, index = False)
     mlflow.log_artifact(trials_out)
 
+    create_table_artifact(
+        key="opt-params",
+        table=trials_df.drop(
+            columns=["datetime_start", "datetime_complete", "duration"]
+        ).sort_values(by="value").head(10).to_dict(orient="records"),
+        description= "# Optimised parameters for simulation study."
+    )
+
     parameters_test_out = str(Path(outdir, "parameters_test.csv"))
     parameters_df_test.to_csv(parameters_test_out, index = False)
     mlflow.log_artifact(parameters_test_out)
+
+    create_table_artifact(
+        key="ground-truth-params",
+        table=parameters_df_test.to_dict(orient="records"),
+        description= "# Ground truth parameters for simulation study."
+    )
 
     optimiser_file = str(Path(outdir, "optimiser.pkl") )
     optimiser_dump(study, optimiser_file)

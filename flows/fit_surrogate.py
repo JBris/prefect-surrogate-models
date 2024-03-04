@@ -174,8 +174,8 @@ def log_model(
 
 
 @flow(
-    name="Optimise Surrogate",
-    description="Optimise a surrogate model.",
+    name="Fit Surrogate",
+    description="Fit a surrogate model.",
     task_runner=SequentialTaskRunner(),
 )
 def fit_surrogate_flow(
@@ -183,7 +183,7 @@ def fit_surrogate_flow(
     experiment_model: ExperimentModel
 ) -> None:
     """
-    Fitting the surogate model flow.
+    Fitting the surrogate model flow.
 
     Args:
         data_model (DataModel):

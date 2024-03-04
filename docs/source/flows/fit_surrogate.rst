@@ -6,6 +6,9 @@ Fit Surrogate
 .. automodule:: flows.fit_surrogate
    :members:
 
+.. autodata:: flows.fit_surrogate.fit_surrogate_flow
+   :annotation:
+
 .. autodata:: flows.fit_surrogate.fit_model
    :annotation:
 
