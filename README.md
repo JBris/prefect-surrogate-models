@@ -36,7 +36,7 @@ The pipeline is composed of the following steps:
 1. Make use of Latin Hypercube sampling to draw from the parameter space and construct a design matrix.
 2. Run the WOFOST model *n* times for each sampled parameter set.
 3. Train a variational Gaussian process to map the parameter sets against the WOFOST simulation outputs.
-4. Perform parameter optimisation using the Tree-Structured Parzen Estimator algorithm. Instead of directly executing WOFOST during the optimisation procedure, we instead perform optimisation on the Gaussian process.
+4. Perform parameter optimisation using the Tree-Structured Parzen Estimator algorithm. Rather than directly executing WOFOST during the optimisation procedure, we instead perform optimisation on the Gaussian process.
 
 [Run prefect.sh to run the full pipeline.](scripts/prefect.sh)
 
