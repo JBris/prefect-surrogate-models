@@ -40,6 +40,8 @@ The pipeline is composed of the following steps:
 
 [Run prefect.sh to run the full pipeline.](scripts/prefect.sh)
 
+[The results of the pipeline can be accessed from the output directory.](data/output)
+
 # Python Environment
 
 [Python dependencies are specified in this requirements.txt file.](services/python/requirements.txt). 
