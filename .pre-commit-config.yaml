@@ -11,6 +11,19 @@ repos:
     rev: 5.13.2
     hooks:
     -   id: isort
+-   repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+    -   id: autoflake
+        args: [--remove-unused-variables, --remove-duplicate-keys, --in-place]
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+    -   id: mypy
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.2
+    hooks:
+    -   id: pyupgrade
 -   repo: https://github.com/kynan/nbstripout
     rev: 0.5.0
     hooks:
